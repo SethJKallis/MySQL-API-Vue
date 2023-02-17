@@ -5,6 +5,7 @@ const app = express();
 
 //Routes
 const productRoutes = require('./routes/productRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 app.set("port", process.env.PORT || 3500);
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(productRoutes);
+app.use(userRoutes);
 
 app.get('/', (req,res) => {
     res.json({
