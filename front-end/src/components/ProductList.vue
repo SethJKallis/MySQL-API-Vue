@@ -1,6 +1,6 @@
 <template>
     <div>
-        <table>
+        <table class="table table-striped table-dark table-hover">
             <thead>
                 <tr>
                     <th>Product Name</th>
@@ -12,12 +12,13 @@
                 <tr v-for="item in items" v-bind:key="item.product_id">
                     <td>{{ item.product_name }}</td>
                     <td>{{ item.product_price }}</td>
-                    <td><router-link class="btn btn-success" v-bind:to="{name: 'editProduct', params: {id: item.product_id}}">Edit</router-link>
+                    <td><router-link class="btn btn-success me-2" v-bind:to="{name: 'editProduct', params: {id: item.product_id}}">Edit</router-link>
                     <a class="btn btn-danger" v-on:click="deleteProduct(item.product_id)">Delete</a>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <router-link class="btn btn-primary" v-bind:to="{name: 'createProduct'}">ADD</router-link>
     </div>
 </template>
 

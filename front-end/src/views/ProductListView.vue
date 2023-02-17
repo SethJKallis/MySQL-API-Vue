@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h1>List Of Products</h1>
         <ProductList/>
     </div>
 </template>

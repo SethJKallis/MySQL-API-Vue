@@ -2,15 +2,15 @@
     <div>
         <div class="form-group">
             <label class="label" for="name">Product Name</label>
-            <div class="form-control">
-                <input class="form-control" type="text" v-model="product_name">
+            <div class="control">
+                <input class="form-control text-center w-50 mx-auto" type="text" v-model="product_name">
             </div>
         </div>
 
         <div class="form-group">
             <label class="label" for="price">price</label>
-            <div class="form-control">
-                <input class="form-control" type="text" v-model="product_price">
+            <div class="control">
+                <input class="form-control text-center w-50 mx-auto" type="text" v-model="product_price">
             </div>
         </div>
 
