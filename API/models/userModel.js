@@ -40,12 +40,21 @@ module.exports = {
     },
 
     updateUser(data, id, result){
-        db.query(`UPDATE users SET user_name = ?, user_email = ?, user_pass = ? WHERE user_id = ?`, [data.user_name, data.user_email, data.user_pass, id], (err,results) => {
-            if(err){
-                console.log(err);
-                result(err,null);
-            } else result(null, results)
-        });
+            const pass = data.user_pass;
+            bcrypt.hash(pass, 10, (err,hash) => {
+                if(err){
+                    console.log(err);
+                    result(err,null);
+                } else {
+                    data.user_pass = hash
+                    db.query(`UPDATE users SET user_name = ?, user_email = ?, user_pass = ? WHERE user_id = ?`, [data.user_name, data.user_email, data.user_pass, id], (err,results) => {
+                        if(err){
+                            console.log(err);
+                            result(err,null)
+                        } else result(null,results)
+                });
+            }
+        })
     },
 
     deleteUser(id, result){
@@ -57,8 +66,8 @@ module.exports = {
         });
     },
 
-    async userLogin(user_email, user_pass, result){
-        db.query(`SELECT * FROM users WHERE user_email = ?`, [user_email], (err,rows) => {
+    async userLogin(data, result){
+        db.query(`SELECT * FROM users WHERE user_email = ?`, [data.user_email], (err,rows) => {
             if(err){
                 console.log(err);
                 result(err,null);
@@ -66,7 +75,7 @@ module.exports = {
                 result(null, {status: "Error", message: "User not found"})
             } else {
                 const user = rows[0];
-                bcrypt.compare(user_pass, user.user_pass, (err,res) => {
+                bcrypt.compare(data.user_pass, user.user_pass, (err,res) => {
                     if(err){
                         console.log(err);
                         result(err,null);
